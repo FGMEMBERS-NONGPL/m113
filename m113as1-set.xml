@@ -1,0 +1,255 @@
+<?xml version="1.0"?>
+
+
+<PropertyList>
+
+ <sim>
+
+  <description>M113AS3 Medium Recon Vehicle</description>
+  <author>Stanley Neo</author>
+  <status>alpha</status>
+  <flight-model>yasim</flight-model>
+  <aero>m113-yasim</aero>
+
+  <submodels> 
+    <serviceable type="bool">true</serviceable>
+    <path>Aircraft/m113/submodels.xml</path>
+  </submodels>
+
+  <virtual-cockpit archive="y">true</virtual-cockpit>
+  <allow-toggle-cockpit archive="y">true</allow-toggle-cockpit>
+
+  <sound>
+   <path>Aircraft/m113/m113-sound.xml</path>
+  </sound>
+
+  <model>
+   <path>Aircraft/m113/Models/m113as3.xml</path>
+   <crew>
+     <pilot>
+       <visible type="int">1</visible>
+     </pilot>
+   </crew>
+  </model> 
+
+  <help>
+   <title>M113AS3 Medium Reconnaissance Vehicle</title>
+   <line>PERFORMANCE</line>
+   <line>Maximum Land Speed 70kmh</line>
+   <line>Maximum Land Speed at Low Gear 20kmh</line>
+   <line>Acceleration 0-32 kmh at less than 9 seconds</line>
+   <line>Braking 32-0 kmh at 9m</line>
+   <line>Cross Country Range 480 km</line>
+   <line> </line>
+   <line>OPERATION</line>
+   <line>Steering: Rudder</line>
+   <line>Gear/Acceleration: Throttle</line>
+   <line>Brake: Key "," "."</line>
+   <line>Reverse: to engage - Hold Key "M" until reverse</line>
+   <line>Reverse: to disengage - hold Key "m" until forward gear</line>
+   <line>Park: Key "B" to engage, Key "b" to disengage</line>
+   <line>Turret: Temporarily Disabled</line>
+   <line>Barrel: Temporarily Disabled</line>
+   <line>Realignment of Barrel and Steer: Numpad "5"</line>
+<line> </line>
+   <line>ARMAMENT</line>
+   <line>.50 machine gun: Key "e" to fire, Key "e" to stop firing</line>
+   <line>76mm Cannon: Keys Shift+1 through Shift+9 to fire</line>
+  </help>
+
+		<menubar>
+			<default>
+				<menu n="10">
+					<label>M113</label>
+					<enabled type="bool">true</enabled>
+					<item>
+						<label>Find Tow</label>	
+						<binding>
+							<command>property-toggle</command>
+							<property>/controls/aerotow/find-aircraft</property>
+						</binding>
+					</item>
+					<item>
+						<label>Dis-/Connect</label>
+						<binding>
+							<command>property-toggle</command>
+							<property>/controls/gear/roof</property>
+						</binding>
+					</item>
+				</menu>
+			</default>
+		</menubar>
+
+  <view n="0">
+   <internal archive="y">true</internal>
+   <config>
+    <x-offset-m archive="y" type="double">-0.65</x-offset-m> <!-- m113 x-axis from left to right -->
+    <y-offset-m archive="y" type="double">1.77</y-offset-m> <!-- m113 y-axis from up to down -->
+    <z-offset-m archive="y" type="double">0.9</z-offset-m> <!-- m113 z-axis from front to back -->
+    <pitch-offset-deg>0.0</pitch-offset-deg>
+   </config>
+  </view>
+  <view n="1">
+   <config>
+    <target-z-offset-m archive="y" type="double">2.6</target-z-offset-m>
+   </config>
+  </view>
+
+  <view n="2">
+   <config>
+    <target-z-offset-m archive="y" type="double">2.6</target-z-offset-m>
+   </config>
+  </view>
+
+  <view n="3">
+   <config>
+    <target-z-offset-m archive="y" type="double">2.6</target-z-offset-m>
+   </config>
+  </view>
+
+  <view n="4">
+   <config>
+    <target-z-offset-m archive="y" type="double">2.6</target-z-offset-m>
+   </config>
+  </view>
+
+  <view n="5">
+   <config>
+    <target-z-offset-m archive="y" type="double">2.6</target-z-offset-m>
+   </config>
+  </view>
+
+  <view n="6">
+   <config>
+    <target-z-offset-m archive="y" type="double">2.6</target-z-offset-m>
+   </config>
+  </view>
+
+ </sim>
+
+ <engines>
+  <engine>
+   <rpm type="double">2800</rpm>
+  </engine>
+ </engines>
+ <controls>
+   <engines>
+      <engine n="0">
+        <magnetos>3</magnetos>
+      </engine>
+   </engines>
+	<gear>
+		<screen type="bool">false</screen>
+		<roof type="bool">false</roof>
+	</gear>
+ </controls>
+<input>
+	<keyboard>
+        <key n="77"> 
+          <name>M</name>
+          <desc>engage Reverse</desc>
+          <binding> 
+            <command>property-assign</command>
+            <property>controls/engines/engine[0]/mixture</property>
+            <value type="double">0.0</value>
+          </binding>
+        </key>
+        <key n="109"> 
+          <name>m</name>
+          <desc>disengage Reverse</desc>
+          <binding> 
+            <command>property-assign</command>
+            <property>controls/engines/engine[0]/mixture</property>
+            <value type="double">1.0</value>
+          </binding>
+        </key>
+    <key n="101">
+     <name>e</name>
+     <desc>Fire MG, stop firing MG</desc>
+     <binding>
+      <command>property-toggle</command>
+      <value>3</value>
+      <value>0</value>
+      <property>controls/armament/trigger</property>
+     </binding>
+    </key>
+    <key n="33">
+     <name>Shift+1</name>
+     <desc>Fire 1st cannon shell</desc>
+     <binding>
+      <command>property-assign</command>
+      <value>3</value>
+      <value>0</value>
+      <property>fdm/jsbsim/systems/armament/station1/released</property>
+     </binding>
+    </key>
+ <key n="64">
+  <name>Shift+2</name>
+  <desc>Fire 2nd cannon shell</desc>
+  <binding>
+   <command>property-assign</command>
+   <property>fdm/jsbsim/systems/armament/station2/released</property>
+   <value type="int">1</value>
+  </binding>
+ </key>
+ <key n="35">
+  <name>Shift+3</name>
+  <desc>Fire 3rd cannon shell</desc>
+  <binding>
+   <command>property-assign</command>
+   <property>fdm/jsbsim/systems/armament/station3/released</property>
+   <value type="int">1</value>
+  </binding>
+ </key>
+ <key n="36">
+  <name>Shift+4</name>
+  <desc>Fire 4th cannon shell</desc>
+  <binding>
+   <command>property-assign</command>
+   <property>fdm/jsbsim/systems/armament/station4/released</property>
+   <value type="int">1</value>
+  </binding>
+ </key>
+ <key n="37">
+  <name>Shift+5</name>
+  <desc>Fire 5th cannon shell</desc>
+  <binding>
+   <command>property-assign</command>
+   <property>fdm/jsbsim/systems/armament/station5/released</property>
+   <value type="int">1</value>
+  </binding>
+ </key>
+ <key n="38">
+  <name>Shift+6</name>
+  <desc>Fire 6th cannon shell</desc>
+  <binding>
+   <command>property-assign</command>
+   <property>fdm/jsbsim/systems/armament/station6/released</property>
+   <value type="int">1</value>
+  </binding>
+ </key>
+ <key n="39">
+  <name>Shift+7</name>
+  <desc>Fire 7th cannon shell</desc>
+  <binding>
+   <command>property-assign</command>
+   <property>fdm/jsbsim/systems/armament/station7/released</property>
+   <value type="int">1</value>
+  </binding>
+ </key>
+ <key n="40">
+  <name>Shift+8</name>
+  <desc>Fire 8th cannon shell</desc>
+  <binding>
+   <command>property-assign</command>
+   <property>fdm/jsbsim/systems/armament/station8/released</property>
+   <value type="int">1</value>
+  </binding>
+ </key>
+	</keyboard>
+</input>
+</PropertyList>
+
+
+
+
